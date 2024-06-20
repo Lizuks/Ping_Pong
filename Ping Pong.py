@@ -12,8 +12,8 @@ speed = 10
 
 font.init()
 font = font.SysFont('Arial', 45)
-win = font.render('YOU WIN!', True, (255, 0, 0))
-lose = font.render('YOU LOSE!', True, (255, 0, 0))
+lose1 = font.render('YOU LOSE! player 1', True, (255, 0, 0))
+lose2 = font.render('YOU LOSE! player 2', True, (255, 0, 0))
 class Game_sprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, w, h, player_speed):
         sprite.Sprite.__init__(self)
@@ -63,5 +63,11 @@ while game:
         speed_y *= -1
     if sprite.collide_rect(raketka_1, bal) or sprite.collide_rect(raketka_2, bal):
         speed_x *= -1
+    if bal.rect.x < 0:
+        finish = True
+        window.blit(lose1, (200, 200))
+    if bal.rect.x > 630:
+        finish = True
+        window.blit(lose2, (200, 200))
     display.update()
     clock.tick(FPS)
