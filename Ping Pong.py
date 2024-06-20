@@ -39,6 +39,9 @@ class Player(Game_sprite):
             self.rect.y += self.speed   
 raketka_1 = Player('raketka.png', 0, 200, 70, 130, 5)
 raketka_2 = Player('raketka.png', 630, 0, 70, 130, 5)
+speed_x = 3
+speed_y = 3
+bal = Game_sprite('ball.png', 200, 200, 60, 60, 3)
 game = True
 finish = False
 while game:
@@ -53,5 +56,12 @@ while game:
         raketka_1.update_1()
         raketka_2.reset()
         raketka_2.update_2()
+        bal.reset()
+        bal.rect.x += speed_x
+        bal.rect.y += speed_y
+    if bal.rect.y > 440 or bal.rect.y < 0:
+        speed_y *= -1
+    if sprite.collide_rect(raketka_1, bal) or sprite.collide_rect(raketka_2, bal):
+        speed_x *= -1
     display.update()
     clock.tick(FPS)
